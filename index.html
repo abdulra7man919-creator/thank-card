@@ -156,13 +156,13 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* نبدأ من الأعلى */
             align-items: center;
-            padding: 40px 30px;
             text-align: center;
             color: #1e3c72;
-            background: rgba(255, 255, 255, 0.75); /* شفافية خفيفة لقراءة النص */
+            background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(2px);
+            padding: 28% 30px 40px; /* مسافة علوية 28% لترك مساحة للشعار، ومسافة سفلية */
         }
 
         .card-content .message-text {
@@ -172,6 +172,9 @@
             margin-bottom: 25px;
             color: #111;
             white-space: pre-line;
+            flex-grow: 1; /* يتمدد ليملأ المساحة */
+            display: flex;
+            align-items: center; /* يوسّط النص عمودياً داخل المساحة المتبقية */
         }
 
         .card-content .student-name {
@@ -182,7 +185,7 @@
             padding: 8px 25px;
             border-radius: 30px;
             display: inline-block;
-            margin-top: auto;
+            margin-top: auto; /* يدفع الاسم للأسفل */
         }
 
         /* أزرار الإجراءات */

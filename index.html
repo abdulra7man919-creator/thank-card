@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بطاقة شكر - مدرسة الرياض الثانوية بالزلفي</title>
-    <!-- خط عربي جميل -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <!-- مكتبة تحويل HTML إلى صورة -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
@@ -26,7 +24,6 @@
             padding: 20px;
         }
 
-        /* طبقة عازلة لتحسين القراءة فوق الخلفية */
         body::before {
             content: "";
             position: fixed;
@@ -51,7 +48,6 @@
             text-align: center;
         }
 
-        /* رأس الصفحة */
         .header {
             margin-bottom: 25px;
         }
@@ -73,7 +69,6 @@
             font-weight: 600;
         }
 
-        /* نموذج الإدخال */
         .form-group {
             margin-bottom: 20px;
             text-align: right;
@@ -116,7 +111,6 @@
             background: #2a5298;
         }
 
-        /* قسم معاينة البطاقة */
         .card-preview-section {
             margin-top: 30px;
             display: none;
@@ -125,7 +119,6 @@
             display: block;
         }
 
-        /* تصميم البطاقة المصغرة (للمعاينة) */
         #thankCard {
             width: 100%;
             max-width: 500px;
@@ -135,10 +128,10 @@
             position: relative;
             background: #fff;
             box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-            aspect-ratio: 500 / 700; /* تنسيق عمودي مثالي */
+            aspect-ratio: 500 / 700;
         }
 
-        /* الخلفية الأصلية للبطاقة */
+        /* الخلفية الأصلية تظهر كاملة بدون تأثير */
         .card-bg {
             position: absolute;
             top: 0;
@@ -149,32 +142,31 @@
             z-index: 0;
         }
 
-        /* طبقة محتوى البطاقة */
+        /* طبقة المحتوى بدون خلفية معتمة */
         .card-content {
             position: relative;
             z-index: 1;
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* نبدأ من الأعلى */
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
-            color: #1e3c72;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(2px);
-            padding: 28% 30px 40px; /* مسافة علوية 28% لترك مساحة للشعار، ومسافة سفلية */
+            /* لا توجد خلفية، النص سيكون مباشرة على التصميم */
+            padding: 28% 12% 8%; /* زيادة الهوامش الجانبية لتضييق النص */
         }
 
         .card-content .message-text {
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 1.8;
-            margin-bottom: 25px;
-            color: #111;
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.9;
+            margin-bottom: 20px;
+            color: #0a1f3b; /* لون غامق ليناسب خلفية التصميم الفاتحة */
             white-space: pre-line;
-            flex-grow: 1; /* يتمدد ليملأ المساحة */
+            flex-grow: 1;
             display: flex;
-            align-items: center; /* يوسّط النص عمودياً داخل المساحة المتبقية */
+            align-items: center;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.7); /* تحسين وضوح النص */
         }
 
         .card-content .student-name {
@@ -185,10 +177,10 @@
             padding: 8px 25px;
             border-radius: 30px;
             display: inline-block;
-            margin-top: auto; /* يدفع الاسم للأسفل */
+            margin-top: auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        /* أزرار الإجراءات */
         .actions {
             display: flex;
             gap: 12px;
@@ -262,9 +254,7 @@
 
         <button class="preview-btn" id="generateBtn">✨ إظهار البطاقة ومعاينتها</button>
 
-        <!-- منطقة المعاينة -->
         <div class="card-preview-section" id="previewSection">
-            <!-- البطاقة التي سيتم تحويلها إلى صورة -->
             <div id="thankCard">
                 <div class="card-bg"></div>
                 <div class="card-content">
@@ -273,7 +263,6 @@
                 </div>
             </div>
 
-            <!-- أزرار التحميل والمشاركة -->
             <div class="actions">
                 <button class="btn btn-download" id="downloadBtn">📥 تحميل البطاقة</button>
                 <button class="btn btn-share" id="shareBtn">📤 مشاركة عبر واتساب</button>
@@ -282,7 +271,6 @@
     </div>
 
     <script>
-        // قاموس الرسائل
         const messages = {
             father: "والدي الغالي، سندي ومصدر إلهامي. لم تكن هذه الرحلة لتكتمل لولا دعمك اللامحدود وتضحياتك العظيمة. اليوم، وأنا أطوي صفحة المرحلة الثانوية، أهديك نجاحي الذي هو ثمرة غرسك وسهرك. دمت لي فخراً وعزاً أتباهى به.",
             mother: "أمي الحبيبة، جنة قلبي وسر توفيقي. كل نجاح أحققه هو استجابة لدعواتك الصادقة ونتاج حنانك الذي لا ينضب. وأنا أحتفل بتخرجي اليوم، أطبع قبلة امتنان على جبينكِ، راجياً أن أكون دائماً عند حسن ظنكِ ومصدر فخركِ.",
@@ -295,7 +283,6 @@
             counselor: "موجهي الفاضل، ومرشدي الأمين. شكراً لقلبك المفتوح واستماعك الدائم، ولنصائحك التي ذللت الصعاب وأنارت لي الطريق. لقد كان لتوجيهك ودعمك النفسي أثر بالغ في وصولي إلى منصة التخرج اليوم بثقة وعزيمة راسخة."
         };
 
-        // العناصر
         const generateBtn = document.getElementById('generateBtn');
         const previewSection = document.getElementById('previewSection');
         const cardMessage = document.getElementById('cardMessage');
@@ -305,35 +292,20 @@
         const downloadBtn = document.getElementById('downloadBtn');
         const shareBtn = document.getElementById('shareBtn');
 
-        // توليد البطاقة
         generateBtn.addEventListener('click', () => {
             const name = studentNameInput.value.trim();
             const person = personSelect.value;
-
-            if (!name) {
-                alert('يرجى كتابة اسم الطالب');
-                return;
-            }
-            if (!person) {
-                alert('يرجى اختيار الشخص المراد شكره');
-                return;
-            }
-
-            // تحديث البطاقة بالبيانات
+            if (!name) return alert('يرجى كتابة اسم الطالب');
+            if (!person) return alert('يرجى اختيار الشخص المراد شكره');
             cardMessage.textContent = messages[person];
             cardStudentName.textContent = name;
             previewSection.classList.add('active');
         });
 
-        // تحميل البطاقة كصورة
         downloadBtn.addEventListener('click', async () => {
             const card = document.getElementById('thankCard');
             try {
-                const canvas = await html2canvas(card, {
-                    scale: 2, // دقة عالية
-                    useCORS: true,
-                    allowTaint: true
-                });
+                const canvas = await html2canvas(card, { scale: 2, useCORS: true, allowTaint: true });
                 const link = document.createElement('a');
                 link.download = 'بطاقة-شكر.png';
                 link.href = canvas.toDataURL('image/png');
@@ -343,15 +315,12 @@
             }
         });
 
-        // مشاركة عبر واتساب (توجيه للمستخدم)
         shareBtn.addEventListener('click', async () => {
-            // نحاول استخدام Web Share API إذا كان مدعوماً
             const card = document.getElementById('thankCard');
             try {
                 const canvas = await html2canvas(card, { scale: 2, useCORS: true, allowTaint: true });
                 const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
                 const file = new File([blob], 'بطاقة-شكر.png', { type: 'image/png' });
-
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     await navigator.share({
                         files: [file],
@@ -359,13 +328,11 @@
                         text: 'تخرجت من مدرسة الرياض الثانوية بالزلفي وهذه بطاقة شكري'
                     });
                 } else {
-                    // الرجوع لتحميل الصورة ثم التوجيه لواجهة واتساب
                     alert('المتصفح لا يدعم المشاركة المباشرة. سيتم تحميل البطاقة، بعدها يمكنك إرسالها عبر واتساب يدوياً.');
                     const link = document.createElement('a');
                     link.download = 'بطاقة-شكر.png';
                     link.href = canvas.toDataURL('image/png');
                     link.click();
-                    // فتح واتساب ويب (لاستخدام النص فقط)
                     window.open('https://wa.me/?text=أنظر%20إلى%20بطاقة%20شكري%20لمناسبة%20تخرجي%20من%20مدرسة%20الرياض%20الثانوية%20بالزلفي', '_blank');
                 }
             } catch (error) {

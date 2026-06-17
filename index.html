@@ -79,7 +79,7 @@
             margin-bottom: 8px;
             color: #1e3c72;
         }
-        input, select {
+        input, select, textarea {
             width: 100%;
             padding: 14px 16px;
             border: 2px solid #e0e0e0;
@@ -88,10 +88,14 @@
             background: #fff;
             transition: 0.3s;
         }
-        input:focus, select:focus {
+        input:focus, select:focus, textarea:focus {
             border-color: #1e3c72;
             outline: none;
             box-shadow: 0 0 0 4px rgba(30,60,114,0.1);
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
         }
 
         .preview-btn {
@@ -166,7 +170,6 @@
             text-shadow: 0 1px 2px rgba(255,255,255,0.7);
         }
 
-        /* تصغير حجم اسم الطالب */
         .card-content .student-name {
             font-size: 16px;
             font-weight: 700;
@@ -207,6 +210,16 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
+        /* قسم التخصيص المخفي */
+        #customSection {
+            display: none;
+            margin-top: 20px;
+            text-align: right;
+        }
+        #customSection.active {
+            display: block;
+        }
+
         @media (max-width: 500px) {
             .app-container {
                 padding: 20px 15px;
@@ -243,7 +256,29 @@
                 <option value="uncle_m">الخال</option>
                 <option value="principal">مدير المدرسة</option>
                 <option value="counselor">الموجه الطلابي</option>
+                <option value="custom">✨ آخر (تخصيص شخص آخر)</option>
             </select>
+        </div>
+
+        <!-- قسم التخصيص يظهر فقط عند اختيار "آخر" -->
+        <div id="customSection">
+            <div class="form-group">
+                <label>اختر نموذج رسالة جاهز أو اكتب رسالتك</label>
+                <select id="customTemplate">
+                    <option value="" disabled selected>-- اختر نموذجاً --</option>
+                    <option value="friend">صديق / صديقة</option>
+                    <option value="cousin_p">ابن العم / بنت العم</option>
+                    <option value="cousin_m">ابن الخال / بنت الخال</option>
+                    <option value="classmate">زميل دراسة</option>
+                    <option value="neighbor">جار / جارة</option>
+                    <option value="coach">مدرب / مدربة</option>
+                    <option value="free">🖊️ رسالة مخصصة (أكتبها بنفسي)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>نص الرسالة (يمكنك التعديل)</label>
+                <textarea id="customMessage" placeholder="أدخل رسالتك الخاصة هنا..."></textarea>
+            </div>
         </div>
 
         <button class="preview-btn" id="generateBtn">✨ إظهار البطاقة ومعاينتها</button>
@@ -256,8 +291,6 @@
                     <div class="student-name" id="cardStudentName">اسم الطالب</div>
                 </div>
             </div>
-
-            <!-- أزرار التحميل فقط -->
             <div class="actions">
                 <button class="btn btn-download" id="downloadBtn">📥 تحميل البطاقة</button>
             </div>
@@ -265,6 +298,7 @@
     </div>
 
     <script>
+        // الرسائل الأساسية
         const messages = {
             father: "والدي الغالي، سندي ومصدر إلهامي. لم تكن هذه الرحلة لتكتمل لولا دعمك اللامحدود وتضحياتك العظيمة. اليوم، وأنا أطوي صفحة المرحلة الثانوية، أهديك نجاحي الذي هو ثمرة غرسك وسهرك. دمت لي فخراً وعزاً أتباهى به.",
             mother: "أمي الحبيبة، جنة قلبي وسر توفيقي. كل نجاح أحققه هو استجابة لدعواتك الصادقة ونتاج حنانك الذي لا ينضب. وأنا أحتفل بتخرجي اليوم، أطبع قبلة امتنان على جبينكِ، راجياً أن أكون دائماً عند حسن ظنكِ ومصدر فخركِ.",
@@ -277,24 +311,74 @@
             counselor: "موجهي الفاضل، ومرشدي الأمين. شكراً لقلبك المفتوح واستماعك الدائم، ولنصائحك التي ذللت الصعاب وأنارت لي الطريق. لقد كان لتوجيهك ودعمك النفسي أثر بالغ في وصولي إلى منصة التخرج اليوم بثقة وعزيمة راسخة."
         };
 
+        // نماذج الرسائل المخصصة
+        const customTemplates = {
+            friend: "صديقي العزيز، رفيق الدرب وشريك الذكريات. شكراً لأنك كنت دائماً بجانبي في كل خطوة، تشاركني الفرح وتخفف عني التعب. تخرجي اليوم هو ثمرة لمحبتك ودعمك الصادق، فأهديك هذا النجاح بكل فخر.",
+            cousin_p: "ابن عمي الغالي، قريب الروح ورفيق العمر. لطالما كانت كلماتك وتشجيعك نبراساً لي. في يوم تخرجي، أتذكر وقوفك الدائم بجانبي، فأشاركك الفرحة وأهديك جزءاً من هذا الإنجاز تقديراً لمكانتك في قلبي.",
+            cousin_m: "ابن خالي الحبيب، الأخ الذي لم تلده أمي. شكراً لمساندتك الصادقة ولحضورك المميز في كل تفاصيل رحلتي. تخرجي اليوم هو فرحة لنا معاً، فشكراً لك من الأعماق على كل ما قدمته.",
+            classmate: "زميلي العزيز، رفيق المقعد وأجمل الأوقات. قضينا سوياً سنوات من الجد والاجتهاد والضحك. واليوم وأنا أتخرج، أتذكر كيف كنت دافعاً لي للأمام، فأشكرك من كل قلبي على الصحبة الجميلة.",
+            neighbor: "جاري الكريم، قريب الدار وطيب الأثر. شكراً لمشاعرك النبيلة واهتمامك الدائم الذي كان يمدني بالطاقة الإيجابية. تخرجي اليوم هو مناسبة أشاركك إياها بكل محبة وامتنان.",
+            coach: "مدربي الملهم، صانع الهمم وباني العزائم. علمتني أن النجاح لا يأتي إلا بالإصرار والثقة بالنفس. بفضلك وصلت إلى هذه اللحظة بقوة وإرادة، فشكراً جزيلاً على كل جهد بذلته من أجلي."
+        };
+
+        // العناصر
+        const personSelect = document.getElementById('personSelect');
+        const customSection = document.getElementById('customSection');
+        const customTemplate = document.getElementById('customTemplate');
+        const customMessage = document.getElementById('customMessage');
         const generateBtn = document.getElementById('generateBtn');
         const previewSection = document.getElementById('previewSection');
         const cardMessage = document.getElementById('cardMessage');
         const cardStudentName = document.getElementById('cardStudentName');
         const studentNameInput = document.getElementById('studentName');
-        const personSelect = document.getElementById('personSelect');
         const downloadBtn = document.getElementById('downloadBtn');
 
+        // إظهار وإخفاء قسم التخصيص
+        personSelect.addEventListener('change', () => {
+            if (personSelect.value === 'custom') {
+                customSection.classList.add('active');
+            } else {
+                customSection.classList.remove('active');
+                customMessage.value = '';
+                customTemplate.value = '';
+            }
+        });
+
+        // ملء حقل النص عند اختيار نموذج
+        customTemplate.addEventListener('change', () => {
+            const selected = customTemplate.value;
+            if (selected === 'free') {
+                customMessage.value = ''; // يفرغ الحقل ليكتب الطالب بنفسه
+            } else if (selected && customTemplates[selected]) {
+                customMessage.value = customTemplates[selected];
+            }
+        });
+
+        // توليد البطاقة
         generateBtn.addEventListener('click', () => {
             const name = studentNameInput.value.trim();
             const person = personSelect.value;
+
             if (!name) return alert('يرجى كتابة اسم الطالب');
             if (!person) return alert('يرجى اختيار الشخص المراد شكره');
-            cardMessage.textContent = messages[person];
+
+            let finalMessage = '';
+
+            if (person === 'custom') {
+                // التحقق من النص المخصص
+                const msg = customMessage.value.trim();
+                if (!msg) return alert('يرجى كتابة أو اختيار رسالة للشخص الآخر');
+                finalMessage = msg;
+            } else {
+                finalMessage = messages[person];
+            }
+
+            cardMessage.textContent = finalMessage;
             cardStudentName.textContent = name;
             previewSection.classList.add('active');
         });
 
+        // تحميل البطاقة
         downloadBtn.addEventListener('click', async () => {
             const card = document.getElementById('thankCard');
             try {

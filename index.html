@@ -266,19 +266,21 @@
                 <label>اختر نموذج رسالة جاهز أو اكتب رسالتك</label>
                 <select id="customTemplate">
                     <option value="" disabled selected>-- اختر نموذجاً --</option>
-                    <option value="friend">صديق</option>
-                    <option value="cousin_p">ابن العم</option>
-                    <option value="cousin_m">ابن الخال</option>
+                    <option value="friend">صديق / صديقة</option>
+                    <option value="cousin_p">ابن العم / بنت العم</option>
+                    <option value="cousin_m">ابن الخال / بنت الخال</option>
                     <option value="classmate">زميل دراسة</option>
-                    <option value="neighbor">جار</option>
-                    <option value="coach">مدرب</option>
+                    <option value="neighbor">جار / جارة</option>
+                    <option value="coach">مدرب / مدربة</option>
                     <option value="free">🖊️ رسالة مخصصة (أكتبها بنفسي)</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label>نص الرسالة (يمكنك التعديل)</label>
-                <textarea id="customMessage" placeholder="أدخل رسالتك الخاصة هنا..."></textarea>
-            </div>
+        </div>
+
+        <!-- حقل نص الرسالة الموحد (يظهر دائماً) -->
+        <div class="form-group">
+            <label>نص الرسالة (يمكنك التعديل)</label>
+            <textarea id="messageText" placeholder="ستظهر الرسالة هنا بعد الاختيار..."></textarea>
         </div>
 
         <button class="preview-btn" id="generateBtn">✨ إظهار البطاقة ومعاينتها</button>
@@ -325,7 +327,7 @@
         const personSelect = document.getElementById('personSelect');
         const customSection = document.getElementById('customSection');
         const customTemplate = document.getElementById('customTemplate');
-        const customMessage = document.getElementById('customMessage');
+        const messageText = document.getElementById('messageText');
         const generateBtn = document.getElementById('generateBtn');
         const previewSection = document.getElementById('previewSection');
         const cardMessage = document.getElementById('cardMessage');
@@ -333,24 +335,36 @@
         const studentNameInput = document.getElementById('studentName');
         const downloadBtn = document.getElementById('downloadBtn');
 
-        // إظهار وإخفاء قسم التخصيص
+        // تحديث حقل النص عند تغيير الاختيار الرئيسي
         personSelect.addEventListener('change', () => {
-            if (personSelect.value === 'custom') {
+            const person = personSelect.value;
+            
+            if (person === 'custom') {
+                // إظهار قسم النماذج المخصصة
                 customSection.classList.add('active');
-            } else {
-                customSection.classList.remove('active');
-                customMessage.value = '';
+                // لا نملأ النص حتى يختار نموذجاً أو يكتب بنفسه
+                messageText.value = '';
                 customTemplate.value = '';
+            } else {
+                // إخفاء قسم النماذج المخصصة
+                customSection.classList.remove('active');
+                customTemplate.value = '';
+                // ملء الرسالة الأساسية مباشرة
+                if (person && messages[person]) {
+                    messageText.value = messages[person];
+                } else {
+                    messageText.value = '';
+                }
             }
         });
 
-        // ملء حقل النص عند اختيار نموذج
+        // ملء حقل النص عند اختيار نموذج مخصص
         customTemplate.addEventListener('change', () => {
             const selected = customTemplate.value;
             if (selected === 'free') {
-                customMessage.value = ''; // يفرغ الحقل ليكتب الطالب بنفسه
+                messageText.value = ''; // يفرغ الحقل ليكتب الطالب بنفسه
             } else if (selected && customTemplates[selected]) {
-                customMessage.value = customTemplates[selected];
+                messageText.value = customTemplates[selected];
             }
         });
 
@@ -358,20 +372,11 @@
         generateBtn.addEventListener('click', () => {
             const name = studentNameInput.value.trim();
             const person = personSelect.value;
+            const finalMessage = messageText.value.trim();
 
             if (!name) return alert('يرجى كتابة اسم الطالب');
             if (!person) return alert('يرجى اختيار الشخص المراد شكره');
-
-            let finalMessage = '';
-
-            if (person === 'custom') {
-                // التحقق من النص المخصص
-                const msg = customMessage.value.trim();
-                if (!msg) return alert('يرجى كتابة أو اختيار رسالة للشخص الآخر');
-                finalMessage = msg;
-            } else {
-                finalMessage = messages[person];
-            }
+            if (!finalMessage) return alert('يرجى كتابة أو اختيار رسالة');
 
             cardMessage.textContent = finalMessage;
             cardStudentName.textContent = name;

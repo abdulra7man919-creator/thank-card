@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شاركنا مشاعرك - مدرسة الرياض الثانوية بالزلفي (بنين)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Cairo',sans-serif; }
+        body {
+            min-height:100vh;
+            background: url('images/bg-card.png') center/cover no-repeat fixed;
+            display:flex; justify-content:center; align-items:center; padding:20px;
+            position:relative;
+        }
+        body::before {
+            content:""; position:fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(0,0,0,0.45); backdrop-filter:blur(5px); z-index:0;
+        }
+        .container {
+            position:relative; z-index:1;
+            width:100%; max-width:600px;
+            background:rgba(255,255,255,0.95); border-radius:24px;
+            padding:30px 25px; box-shadow:0 20px 40px rgba(0,0,0,0.3);
+            text-align:center;
+        }
+        .header img { width:90px; margin-bottom:10px; }
+        .header h1 { font-size:26px; font-weight:900; color:#1e3c72; margin-bottom:5px; }
+        .header p { font-size:16px; color:#444; font-weight:600; }
+
+        .form-group { margin:18px 0; text-align:right; }
+        label { display:block; font-weight:700; margin-bottom:6px; color:#1e3c72; }
+        input, select, textarea {
+            width:100%; padding:14px 16px; border:2px solid #e0e0e0; border-radius:12px;
+            font-size:16px; background:#fff; transition:0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color:#1e3c72; outline:none; box-shadow:0 0 0 4px rgba(30,60,114,0.1);
+        }
+        textarea { resize:vertical; min-height:120px; }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+            justify-content: flex-start;
+        }
+        .checkbox-group label {
+            font-weight:600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 0;
+            color:#333;
+            cursor: pointer;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 18px; height: 18px; accent-color: #1e3c72;
+        }
+
+        .btn-submit {
+            background:#1e3c72; color:#fff; border:none; padding:14px 30px;
+            font-size:18px; font-weight:700; border-radius:50px; cursor:pointer;
+            width:100%; margin-top:15px; transition:0.3s;
+        }
+        .btn-submit:hover { background:#2a5298; transform:translateY(-2px); }
+        #successMsg { display:none; color:#0d5e2e; font-weight:700; margin-top:20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="images/logo.png" alt="شعار المدرسة">
+            <h1>مدرسة الرياض الثانوية بالزلفي (بنين)</h1>
+            <p>🎓 شاركنا مشاعرك وتهنئتك بمناسبة تخرج أبنائنا</p>
+        </div>
+        <div id="formArea">
+            <!-- الاسم (اختياري) -->
+            <div class="form-group">
+                <label>الاسم (اختياري)</label>
+                <input type="text" id="name" placeholder="أدخل اسمك أو اتركه فارغاً">
+            </div>
+
+            <!-- الصفة -->
+            <div class="form-group">
+                <label>الصفة</label>
+                <select id="role">
+                    <option value="" disabled selected>-- اختر --</option>
+                    <option value="أب">أب</option>
+                    <option value="أم">أم</option>
+                    <option value="ولي أمر">ولي أمر</option>
+                    <option value="قريب">قريب</option>
+                    <option value="معلم">معلم</option>
+                    <option value="ضيف">ضيف الحفل</option>
+                    <option value="آخر">آخر</option>
+                </select>
+            </div>
+
+            <!-- من تود شكرهم -->
+            <div class="form-group">
+                <label>من تود شكرهم؟ (يمكنك اختيار أكثر من واحد)</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" class="thank-check" value="مدير المدرسة"> مدير المدرسة</label>
+                    <label><input type="checkbox" class="thank-check" value="الموجه الطلابي"> الموجه الطلابي</label>
+                    <label><input type="checkbox" class="thank-check" value="وكيل المدرسة"> وكيل المدرسة</label>
+                    <label><input type="checkbox" class="thank-check" value="المعلمين"> المعلمين</label>
+                    <label><input type="checkbox" class="thank-check" value="شخص آخر"> شخص آخر</label>
+                </div>
+            </div>
+
+            <!-- نموذج جاهز للعبارة -->
+            <div class="form-group">
+                <label>اختر نموذج رسالة جاهز أو اكتب رسالتك</label>
+                <select id="templateSelect">
+                    <option value="" disabled selected>-- اختر نموذجاً --</option>
+                    <option value="template1">رسالة شكر وامتنان</option>
+                    <option value="template2">دعاء وتوفيق</option>
+                    <option value="template3">إشادة بالمدرسة</option>
+                    <option value="template4">مشاعر الأب / الأم</option>
+                    <option value="free">🖊️ رسالة مخصصة (أكتبها بنفسي)</option>
+                </select>
+            </div>
+
+            <!-- حقل الرسالة -->
+            <div class="form-group">
+                <label>رسالتك ومشاعرك</label>
+                <textarea id="message" placeholder="اكتب هنا أجمل كلماتك وتهنئتك..."></textarea>
+            </div>
+
+            <button class="btn-submit" id="submitBtn">📨 إرسال المشاركة</button>
+        </div>
+        <div id="successMsg">✅ تم إرسال مشاعرك بنجاح! شكراً لمشاركتك.</div>
+    </div>
+
+    <script>
+        // ⚠️ استبدل هذا الرابط برابط تطبيق الويب الذي حصلت عليه من Google Apps Script
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFgkqltrdDaP1mlzT5-67MsfwngPnewNDuZFybXZKm5RajljhPrsGifhS-RN-qIx04/exec';
+
+        // النماذج الجاهزة
+        const templates = {
+            template1: "أتقدم بجزيل الشكر والعرفان لكل من ساهم في إنجاح هذا الحفل الرائع، وفي مقدمتهم إدارة المدرسة والمعلمين الأفاضل. وفقكم الله وسدد خطاكم.",
+            template2: "أسأل الله أن يوفق أبناءنا في مستقبلهم، وأن يجزيكم خير الجزاء على ما قدمتموه. مبارك للجميع هذا التخرج.",
+            template3: "مدرستنا العزيزة كانت وستظل منارة للعلم والأخلاق. شكراً لكل معلم، وشكراً للإدارة الحكيمة على هذا الصرح المبارك.",
+            template4: "ابني الغالي، فرحتنا بك اليوم لا توصف. حفظك الله وأدام نجاحك. والشكر موصول لكل من كان له فضل في هذا الإنجاز."
+        };
+
+        // ملء الحقل عند اختيار نموذج
+        document.getElementById('templateSelect').addEventListener('change', function() {
+            const value = this.value;
+            const messageField = document.getElementById('message');
+            if (value === 'free') {
+                messageField.value = '';
+            } else if (templates[value]) {
+                messageField.value = templates[value];
+            }
+        });
+
+        // إرسال النموذج
+        document.getElementById('submitBtn').addEventListener('click', async function() {
+            const name = document.getElementById('name').value.trim();
+            const role = document.getElementById('role').value;
+            const message = document.getElementById('message').value.trim();
+
+            const checked = document.querySelectorAll('.thank-check:checked');
+            const thanks = Array.from(checked).map(cb => cb.value).join('، ');
+
+            if (!role) { alert('يرجى اختيار الصفة'); return; }
+            if (!message) { alert('يرجى كتابة رسالتك'); return; }
+
+            const btn = this;
+            btn.disabled = true;
+            btn.textContent = '⏳ جارٍ الإرسال...';
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, role, thanks, message })
+                });
+                document.getElementById('formArea').style.display = 'none';
+                document.getElementById('successMsg').style.display = 'block';
+            } catch (error) {
+                alert('حدث خطأ في الإرسال. يرجى المحاولة مرة أخرى.');
+                btn.disabled = false;
+                btn.textContent = '📨 إرسال المشاركة';
+            }
+        });
+    </script>
+</body>
+</html>

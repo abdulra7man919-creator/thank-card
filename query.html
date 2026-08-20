@@ -56,9 +56,56 @@
         }
         .result-name { font-size:20px; font-weight:900; color:#1e3c72; margin-bottom:10px; }
         .result-hall { font-size:28px; font-weight:900; color:#0d5e2e; }
-        .result-error { font-size:18px; font-weight:700; color:#c0392b; }
+        .result-error { font-size:16px; font-weight:700; color:#c0392b; line-height:1.8; }
         .loading {
             display:none; margin-top:20px; font-weight:700; color:#1e3c72;
+        }
+
+        /* قسم الأزرار السفلية */
+        .quick-links {
+            margin-top:25px;
+            padding-top:20px;
+            border-top:2px dashed #ddd;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+        .quick-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+        .quick-link.pdf {
+            background: #fff3e0;
+            color: #e65100;
+            border-color: #e65100;
+        }
+        .quick-link.whatsapp {
+            background: #e8f5e9;
+            color: #0b8043;
+            border-color: #25D366;
+        }
+        .quick-link.phone {
+            background: #e3f2fd;
+            color: #0d47a1;
+            border-color: #1976d2;
+        }
+        .quick-link svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -84,6 +131,19 @@
             <div class="result-name" id="resultName"></div>
             <div class="result-hall" id="resultHall"></div>
             <div class="result-error" id="resultError"></div>
+        </div>
+
+        <!-- روابط سريعة -->
+        <div class="quick-links">
+            <a class="quick-link pdf" href="https://drive.google.com/file/d/1ak_AY9j1dFG0FJspbArEaUeyq17Y0-XV/view?usp=sharing" target="_blank">
+                📄 النشرة التعريفية
+            </a>
+            <a class="quick-link whatsapp" href="https://wa.me/9660164225933" target="_blank">
+                💬 واتساب المدرسة
+            </a>
+            <a class="quick-link phone" href="tel:0573899201">
+                📞 جوال المدرسة
+            </a>
         </div>
     </div>
 
@@ -138,12 +198,24 @@
                     resultHall.textContent = `القاعة: ${data.hall}`;
                 } else {
                     resultBox.className = 'error';
-                    resultError.textContent = '❌ لم يتم العثور على بيانات برقم الهوية المدخل. تأكد من الرقم وحاول مرة أخرى.';
+                    resultError.innerHTML = `
+                        ❌ لم يتم العثور على بيانات برقم الهوية المدخل.<br>
+                        يرجى إعادة التأكد من الرقم، أو التواصل مع واتساب المدرسة:<br>
+                        <a href="https://wa.me/9660164225933" target="_blank" style="color:#0b8043; font-weight:900;">
+                            💬 0164225933
+                        </a>
+                    `;
                 }
             } catch (error) {
                 resultBox.style.display = 'block';
                 resultBox.className = 'error';
-                resultError.textContent = 'حدث خطأ في الاتصال. يرجى المحاولة لاحقاً.';
+                resultError.innerHTML = `
+                    ❌ حدث خطأ في الاتصال.<br>
+                    يرجى المحاولة لاحقاً، أو التواصل مع واتساب المدرسة:<br>
+                    <a href="https://wa.me/9660164225933" target="_blank" style="color:#0b8043; font-weight:900;">
+                        💬 0164225933
+                    </a>
+                `;
             } finally {
                 queryBtn.disabled = false;
                 queryBtn.textContent = '🔎 استعلام';

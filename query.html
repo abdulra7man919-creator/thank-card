@@ -71,7 +71,7 @@
         </div>
 
         <div class="form-group">
-            <label>أدخل رقم الهوية أو الرقم الجامعي</label>
+            <label>أدخل رقم الهوية</label>
             <input type="text" id="studentId" placeholder="مثال: 1234567890" maxlength="20">
         </div>
 
@@ -88,8 +88,8 @@
     </div>
 
     <script>
-        // ⚠️ استبدل هذا الرابط برابط تطبيق الويب من Google Apps Script
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxxxx/exec';
+        // رابط تطبيق الويب من Google Apps Script
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxJ3kjk0eB6u4IzYsAMXcczrFz7unGlnkLBbfNZpU-lI9nOxKE_xwlg1oGmi77BJ8nB/exec';
 
         const queryBtn = document.getElementById('queryBtn');
         const studentIdInput = document.getElementById('studentId');
@@ -127,7 +127,7 @@
             queryBtn.textContent = '⏳ جارٍ البحث...';
 
             try {
-                const response = await fetch(`${https://script.google.com/macros/s/AKfycbxJ3kjk0eB6u4IzYsAMXcczrFz7unGlnkLBbfNZpU-lI9nOxKE_xwlg1oGmi77BJ8nB/exec}?id=${encodeURIComponent(studentId)}`);
+                const response = await fetch(SCRIPT_URL + '?id=' + encodeURIComponent(studentId));
                 const data = await response.json();
 
                 resultBox.style.display = 'block';

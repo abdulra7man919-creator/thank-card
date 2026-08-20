@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استعلام القاعات - مدرسة الرياض الثانوية بالزلفي (بنين)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Cairo',sans-serif; }
+        body {
+            min-height:100vh;
+            background: url('images/bg-card.png') center/cover no-repeat fixed;
+            display:flex; justify-content:center; align-items:center; padding:20px;
+            position:relative;
+        }
+        body::before {
+            content:""; position:fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(0,0,0,0.45); backdrop-filter:blur(5px); z-index:0;
+        }
+        .container {
+            position:relative; z-index:1;
+            width:100%; max-width:500px;
+            background:rgba(255,255,255,0.95); border-radius:24px;
+            padding:30px 25px; box-shadow:0 20px 40px rgba(0,0,0,0.3);
+            text-align:center;
+        }
+        .header img { width:90px; margin-bottom:10px; }
+        .header h1 { font-size:24px; font-weight:900; color:#1e3c72; margin-bottom:5px; }
+        .header p { font-size:15px; color:#444; font-weight:600; }
+
+        .form-group { margin:20px 0; text-align:right; }
+        label { display:block; font-weight:700; margin-bottom:6px; color:#1e3c72; }
+        input {
+            width:100%; padding:14px 16px; border:2px solid #e0e0e0; border-radius:12px;
+            font-size:16px; background:#fff; transition:0.3s; text-align:center;
+        }
+        input:focus {
+            border-color:#1e3c72; outline:none; box-shadow:0 0 0 4px rgba(30,60,114,0.1);
+        }
+
+        .btn-query {
+            background:#1e3c72; color:#fff; border:none; padding:14px 30px;
+            font-size:18px; font-weight:700; border-radius:50px; cursor:pointer;
+            width:100%; margin-top:15px; transition:0.3s;
+        }
+        .btn-query:hover { background:#2a5298; transform:translateY(-2px); }
+
+        /* صندوق النتيجة */
+        #resultBox {
+            display:none; margin-top:25px; padding:20px;
+            background:#f0f4ff; border-radius:16px; border:2px solid #1e3c72;
+        }
+        #resultBox.success { display:block; }
+        #resultBox.error {
+            display:block; background:#fff0f0; border-color:#c0392b;
+        }
+        .result-name { font-size:20px; font-weight:900; color:#1e3c72; margin-bottom:10px; }
+        .result-hall { font-size:28px; font-weight:900; color:#0d5e2e; }
+        .result-error { font-size:18px; font-weight:700; color:#c0392b; }
+        .loading {
+            display:none; margin-top:20px; font-weight:700; color:#1e3c72;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="images/logo.png" alt="شعار المدرسة">
+            <h1>مدرسة الرياض الثانوية بالزلفي (بنين)</h1>
+            <p>🔍 استعلام عن القاعة / الفصل</p>
+        </div>
+
+        <div class="form-group">
+            <label>أدخل رقم الهوية أو الرقم الجامعي</label>
+            <input type="text" id="studentId" placeholder="مثال: 1234567890" maxlength="20">
+        </div>
+
+        <button class="btn-query" id="queryBtn">🔎 استعلام</button>
+
+        <div class="loading" id="loading">⏳ جارٍ البحث...</div>
+
+        <!-- النتيجة -->
+        <div id="resultBox">
+            <div class="result-name" id="resultName"></div>
+            <div class="result-hall" id="resultHall"></div>
+            <div class="result-error" id="resultError"></div>
+        </div>
+    </div>
+
+    <script>
+        // ⚠️ استبدل هذا الرابط برابط تطبيق الويب من Google Apps Script
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxxxx/exec';
+
+        const queryBtn = document.getElementById('queryBtn');
+        const studentIdInput = document.getElementById('studentId');
+        const resultBox = document.getElementById('resultBox');
+        const resultName = document.getElementById('resultName');
+        const resultHall = document.getElementById('resultHall');
+        const resultError = document.getElementById('resultError');
+        const loading = document.getElementById('loading');
+
+        // الاستعلام عند الضغط على الزر
+        queryBtn.addEventListener('click', searchStudent);
+
+        // الاستعلام عند الضغط على Enter
+        studentIdInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') searchStudent();
+        });
+
+        async function searchStudent() {
+            const studentId = studentIdInput.value.trim();
+
+            if (!studentId) {
+                alert('يرجى إدخال رقم الهوية');
+                return;
+            }
+
+            // إخفاء النتيجة السابقة
+            resultBox.className = '';
+            resultBox.style.display = 'none';
+            resultName.textContent = '';
+            resultHall.textContent = '';
+            resultError.textContent = '';
+            
+            // إظهار مؤشر التحميل
+            queryBtn.disabled = true;
+            queryBtn.textContent = '⏳ جارٍ البحث...';
+
+            try {
+                const response = await fetch(`${https://script.google.com/macros/s/AKfycbxJ3kjk0eB6u4IzYsAMXcczrFz7unGlnkLBbfNZpU-lI9nOxKE_xwlg1oGmi77BJ8nB/exec}?id=${encodeURIComponent(studentId)}`);
+                const data = await response.json();
+
+                resultBox.style.display = 'block';
+
+                if (data.found) {
+                    resultBox.className = 'success';
+                    resultName.textContent = `الطالب: ${data.name}`;
+                    resultHall.textContent = `القاعة: ${data.hall}`;
+                } else {
+                    resultBox.className = 'error';
+                    resultError.textContent = '❌ لم يتم العثور على بيانات برقم الهوية المدخل. تأكد من الرقم وحاول مرة أخرى.';
+                }
+            } catch (error) {
+                resultBox.style.display = 'block';
+                resultBox.className = 'error';
+                resultError.textContent = 'حدث خطأ في الاتصال. يرجى المحاولة لاحقاً.';
+            } finally {
+                queryBtn.disabled = false;
+                queryBtn.textContent = '🔎 استعلام';
+            }
+        }
+    </script>
+</body>
+</html>

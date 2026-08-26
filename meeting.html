@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لقاء أولياء الأمور - مدرسة الرياض الثانوية بالزلفي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Cairo',sans-serif; }
+        body {
+            min-height:100vh;
+            background: url('images/bg-card.png') center/cover no-repeat fixed;
+            display:flex; justify-content:center; align-items:center; padding:20px;
+            position:relative;
+        }
+        body::before {
+            content:""; position:fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(0,0,0,0.5); backdrop-filter:blur(5px); z-index:0;
+        }
+        .container {
+            position:relative; z-index:1;
+            width:100%; max-width:750px;
+            background:rgba(255,255,255,0.95); border-radius:24px;
+            padding:30px 25px; box-shadow:0 20px 40px rgba(0,0,0,0.3);
+        }
+        .header { text-align:center; margin-bottom:25px; }
+        .header img { width:90px; margin-bottom:10px; }
+        .header h1 { font-size:26px; font-weight:900; color:#1e3c72; margin-bottom:5px; }
+        .header p { font-size:16px; color:#444; font-weight:600; }
+
+        .section {
+            background:#fff; border-radius:16px; padding:20px;
+            margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.08);
+            border:1px solid #e0e0e0;
+        }
+        .section h2 {
+            color:#1e3c72; margin-bottom:15px; font-size:20px;
+            border-bottom:2px solid #1e3c72; padding-bottom:8px;
+        }
+
+        .speaker {
+            margin-bottom:15px; padding:15px;
+            background:#f5f7ff; border-radius:12px;
+        }
+        .speaker h3 { color:#0d2b4e; margin-bottom:5px; }
+        .speaker p { color:#333; line-height:1.7; font-weight:600; }
+
+        .topic {
+            display:block; padding:12px; background:#fafafa;
+            border-radius:10px; margin-bottom:10px; text-decoration:none;
+            color:#0d47a1; font-weight:700; transition:0.3s;
+            border:1px solid #ddd;
+        }
+        .topic:hover { background:#e8efff; }
+
+        .form-group { margin-bottom:15px; text-align:right; }
+        label { display:block; font-weight:700; margin-bottom:6px; color:#1e3c72; }
+        input, select, textarea {
+            width:100%; padding:12px 16px; border:2px solid #e0e0e0;
+            border-radius:12px; font-size:16px; background:#fff; transition:0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color:#1e3c72; outline:none; box-shadow:0 0 0 4px rgba(30,60,114,0.1);
+        }
+
+        .btn-submit {
+            background:#1e3c72; color:#fff; border:none; padding:14px 30px;
+            font-size:18px; font-weight:700; border-radius:50px; cursor:pointer;
+            width:100%; margin-top:15px; transition:0.3s;
+        }
+        .btn-submit:hover { background:#2a5298; transform:translateY(-2px); }
+
+        .check-group { display:flex; gap:15px; flex-wrap:wrap; }
+        .check-group label { display:flex; align-items:center; gap:5px; font-weight:600; }
+        .check-group input[type="checkbox"] { width:18px; height:18px; }
+
+        .successMsg { display:none; color:#0d5e2e; font-weight:700; text-align:center; margin-top:20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="images/logo.png" alt="شعار المدرسة">
+            <h1>لقاء أولياء الأمور التفاعلي</h1>
+            <p>👨‍👩‍👧‍👦 شراكة الأسرة والمدرسة</p>
+            <p style="color:#666; font-size:14px;">يمكنكم الحضور في أي وقت يناسبكم</p>
+        </div>
+
+        <!-- كلمة المدير -->
+        <div class="section">
+            <h2>🎙️ كلمة مدير المدرسة</h2>
+            <div class="speaker">
+                <h3>أ. المدير</h3>
+                <p>
+                    نرحب بجميع أولياء الأمور، ونؤكد على أهمية الشراكة الفاعلة بين الأسرة والمدرسة
+                    لتحقيق أهداف العملية التعليمية. نتمنى لكم وقتاً مثمراً في هذا اللقاء.
+                    <br><br>
+                    <em>(يمكن إدراج رابط فيديو مسجل هنا لاحقاً)</em>
+                </p>
+            </div>
+        </div>
+
+        <!-- كلمة الوكيل -->
+        <div class="section">
+            <h2>🗂️ كلمة وكيل شؤون الطلاب</h2>
+            <div class="speaker">
+                <h3>أ. وكيل شؤون الطلاب</h3>
+                <p>
+                    سنستعرض اليوم قواعد السلوك والمواظبة للمرحلة الثانوية، مع توضيح الإجراءات
+                    التي تسهم في بيئة تعليمية آمنة ومنضبطة.
+                    <br><br>
+                    <em>(يمكن إدراج رابط فيديو مسجل هنا لاحقاً)</em>
+                </p>
+            </div>
+        </div>
+
+        <!-- كلمة الموجه -->
+        <div class="section">
+            <h2>🧭 كلمة الموجه الطلابي</h2>
+            <div class="speaker">
+                <h3>أ. الموجه الطلابي</h3>
+                <p>
+                    سنتناول موضوع الدافعية للتحصيل الدراسي، والاستعداد لاختبار القدرات،
+                    مع تقديم خطوات عملية تساعد الأبناء على تحقيق النتائج المرجوة.
+                    <br><br>
+                    <em>(يمكن إدراج رابط فيديو مسجل هنا لاحقاً)</em>
+                </p>
+            </div>
+        </div>
+
+        <!-- الموضوعات -->
+        <div class="section">
+            <h2>📚 موضوعات اللقاء</h2>
+            <a class="topic" href="https://drive.google.com/file/d/14Z4lE3eeA1rA8WH0dD_L1kDvXGesNt4j/view?usp=sharing" target="_blank">📄 شراكة الأسرة والمدرسة</a>
+            <a class="topic" href="https://drive.google.com/file/d/1kkuCPPIy3a93REUOWlufGtu1ipw5vPEt/view?usp=sharing" target="_blank">📋 السلوك والمواظبة للمرحلة الثانوية</a>
+            <a class="topic" href="https://drive.google.com/file/d/1CA8WW-oXq9p2thhlJiPENTZtQsryxwNc/view?usp=drive_link" target="_blank">🎯 الدافعية للتحصيل الدراسي</a>
+            <a class="topic" href="https://drive.google.com/file/d/1MZTl7_7viC9hpAi8Pc6EdmaRkqtgwvRI/view?usp=sharing" target="_blank">🧠 الاستعداد لاختبار القدرات</a>
+        </div>
+
+        <!-- حضور وتفاعل -->
+        <div class="section">
+            <h2>✅ تأكيد الحضور والتفاعل</h2>
+            <div class="form-group">
+                <label>صلة القرابة</label>
+                <input type="text" id="relation" placeholder="مثال: أب، أم، أخ، جد...">
+            </div>
+            <div class="form-group">
+                <label>اسم الطالب</label>
+                <input type="text" id="studentName" placeholder="اسم الطالب">
+            </div>
+            <div class="form-group">
+                <label>الصف</label>
+                <select id="className">
+                    <option value="" disabled selected>-- اختر --</option>
+                    <option value="الأول الثانوي">الأول الثانوي</option>
+                    <option value="الثاني الثانوي">الثاني الثانوي</option>
+                    <option value="الثالث الثانوي">الثالث الثانوي</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>هل استمعت لكلمات المتحدثين؟</label>
+                <div class="check-group">
+                    <label><input type="checkbox" class="confirm-speakers" value="نعم"> نعم</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>هل اطلعت على الموضوعات؟</label>
+                <div class="check-group">
+                    <label><input type="checkbox" class="confirm-topics" value="نعم"> نعم</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>ملاحظات أو أسئلة</label>
+                <textarea id="feedback" rows="4" placeholder="اكتب استفسارك أو ملاحظتك..."></textarea>
+            </div>
+            <button class="btn-submit" id="submitBtn">📨 إرسال التفاعل</button>
+            <div class="successMsg" id="successMsg">✅ تم تسجيل حضوركم وتفاعلكم بنجاح، شكراً لكم.</div>
+        </div>
+    </div>
+
+    <script>
+        // ضع رابط Google Apps Script هنا
+        const SCRIPT_URL = 'https://script.google.com/macros/s/XXXXXXX/exec';
+
+        document.getElementById('submitBtn').addEventListener('click', async function() {
+            const relation = document.getElementById('relation').value.trim();
+            const studentName = document.getElementById('studentName').value.trim();
+            const className = document.getElementById('className').value;
+            const watchedSpeakers = document.querySelector('.confirm-speakers').checked ? 'نعم' : '';
+            const viewedTopics = document.querySelector('.confirm-topics').checked ? 'نعم' : '';
+            const feedback = document.getElementById('feedback').value.trim();
+
+            if (!relation || !studentName || !className) {
+                alert('يرجى تعبئة الحقول المطلوبة');
+                return;
+            }
+
+            const btn = this;
+            btn.disabled = true;
+            btn.textContent = '⏳ جارٍ الإرسال...';
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ relation, studentName, className, watchedSpeakers, viewedTopics, feedback })
+                });
+                document.getElementById('successMsg').style.display = 'block';
+                btn.style.display = 'none';
+            } catch (error) {
+                alert('حدث خطأ، يرجى المحاولة مرة أخرى.');
+                btn.disabled = false;
+                btn.textContent = '📨 إرسال التفاعل';
+            }
+        });
+    </script>
+</body>
+</html>

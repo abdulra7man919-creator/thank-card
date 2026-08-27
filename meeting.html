@@ -23,10 +23,28 @@
             background:rgba(255,255,255,0.95); border-radius:24px;
             padding:30px 25px; box-shadow:0 20px 40px rgba(0,0,0,0.3);
         }
-        .header { text-align:center; margin-bottom:25px; }
+        .header { text-align:center; margin-bottom:20px; }
         .header img { width:90px; margin-bottom:10px; }
         .header h1 { font-size:26px; font-weight:900; color:#1e3c72; margin-bottom:5px; }
         .header p { font-size:16px; color:#444; font-weight:600; }
+
+        /* قسم الفيديو */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 25px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            background:#000;
+        }
+        .video-wrapper iframe {
+            display: block;
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            border: none;
+        }
 
         .section {
             background:#fff; border-radius:16px; padding:20px;
@@ -84,6 +102,16 @@
             <h1>لقاء أولياء الأمور التفاعلي</h1>
             <p>👨‍👩‍👧‍👦 شراكة الأسرة والمدرسة</p>
             <p style="color:#666; font-size:14px;">يمكنكم الحضور في أي وقت يناسبكم</p>
+        </div>
+
+        <!-- الفيديو الافتتاحي -->
+        <div class="video-wrapper">
+            <iframe 
+                src="https://www.youtube.com/embed/YUk-eIc_Jqg?autoplay=1&mute=1&playsinline=1&loop=1&playlist=YUk-eIc_Jqg" 
+                title="فيديو افتتاحي" 
+                allow="autoplay; encrypted-media; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
         </div>
 
         <!-- كلمة المدير -->

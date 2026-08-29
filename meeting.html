@@ -63,6 +63,25 @@
         .speaker h3 { color:#0d2b4e; margin-bottom:5px; }
         .speaker p { color:#333; line-height:1.7; font-weight:600; }
 
+        /* تنسيق صور المتحدثين */
+        .speaker-image {
+            width: 100%;
+            max-width: 500px;
+            margin: 10px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .speaker-image img {
+            width: 100%;
+            display: block;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .speaker-image img:hover {
+            transform: scale(1.02);
+        }
+
         .topic {
             display:block; padding:12px; background:#fafafa;
             border-radius:10px; margin-bottom:10px; text-decoration:none;
@@ -122,9 +141,8 @@
                 <p>
                     نرحب بجميع أولياء الأمور، ونؤكد على أهمية الشراكة الفاعلة بين الأسرة والمدرسة
                     لتحقيق أهداف العملية التعليمية. نتمنى لكم وقتاً مثمراً في هذا اللقاء.
-                    <br><br>
-
                 </p>
+                <!-- سيتم إضافة رابط الفيديو هنا لاحقاً -->
             </div>
         </div>
 
@@ -133,12 +151,9 @@
             <h2>🗂️ كلمة وكيل شؤون الطلاب</h2>
             <div class="speaker">
                 <h3>أ. سلطان بن سحلي العتيبي</h3>
-                <p>
-                    سنستعرض اليوم قواعد السلوك والمواظبة للمرحلة الثانوية، مع توضيح الإجراءات
-                    التي تسهم في بيئة تعليمية آمنة ومنضبطة.
-                    <br><br>
-
-                </p>
+                <div class="speaker-image">
+                    <img src="images/vice-principal.jpeg" alt="كلمة وكيل شؤون الطلاب">
+                </div>
             </div>
         </div>
 
@@ -146,14 +161,11 @@
         <div class="section">
             <h2>🧭 كلمة الموجه الطلابي</h2>
             <div class="speaker">
-                <h3>أ. عبدالرحمن بن صالح الحمادي
-                أ. فهد بن محمد العراجة</h3>
-                <p>
-                    سنتناول موضوع الدافعية للتحصيل الدراسي، والاستعداد لاختبار القدرات،
-                    مع تقديم خطوات عملية تساعد الأبناء على تحقيق النتائج المرجوة.
-                    <br><br>
-
-                </p>
+                <h3>أ. عبدالرحمن بن صالح الحمادي</h3>
+                <h3>أ. فهد بن محمد العراجة</h3>
+                <div class="speaker-image">
+                    <img src="images/counselor.jpeg" alt="كلمة الموجه الطلابي">
+                </div>
             </div>
         </div>
 
@@ -208,7 +220,7 @@
     </div>
 
     <script>
-        // ضع رابط Google Apps Script هنا
+        // رابط تطبيق الويب من Google Apps Script
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyttI_I3-UBauSVCul98jLrBEucxhyDNUXOp8xKjBSM7V17RBuBQa66EW9M6-gI9rik/exec';
 
         document.getElementById('submitBtn').addEventListener('click', async function() {

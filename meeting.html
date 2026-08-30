@@ -25,15 +25,24 @@
             z-index:0;
         }
 
-        .full-header {
+        .container {
             position: relative;
-            z-index: 2;
+            z-index: 1;
+            width: 100%;
+            max-width: 750px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            margin: 20px 0 40px;
+            overflow: hidden; /* يضمن أن الهيدر يتبع حواف الحاوية */
+        }
+
+        .full-header {
             width: 100%;
             margin: 0;
             padding: 0;
             line-height: 0;
             background: #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .full-header img {
             display: block;
@@ -42,16 +51,8 @@
             object-fit: cover;
         }
 
-        .container {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 750px;
-            background: rgba(255,255,255,0.95);
-            border-radius: 0 0 24px 24px;
-            padding: 30px 25px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            margin-bottom: 40px;
+        .content-wrapper {
+            padding: 25px 25px 30px;
         }
 
         .meeting-title {
@@ -183,127 +184,130 @@
     </style>
 </head>
 <body>
-    <!-- الهيدر بعرض كامل -->
-    <div class="full-header">
-        <img src="images/logo.png" alt="هيدر مدرسة الرياض الثانوية بالزلفي">
-    </div>
-
     <div class="container">
 
-        <!-- عنوان اللقاء -->
-        <div class="meeting-title">
-            <h1>لقاء أولياء الأمور غير المتزامن 1448</h1>
-            <p>مدرسة الرياض الثانوية بالزلفي</p>
+        <!-- الهيدر داخل الحاوية -->
+        <div class="full-header">
+            <img src="images/logo.png" alt="هيدر مدرسة الرياض الثانوية بالزلفي">
         </div>
 
-        <!-- الفيديو الافتتاحي -->
-        <div class="video-wrapper">
-            <iframe
-                src="https://www.youtube.com/embed/vp0nW5eEFK4?autoplay=1&mute=1&playsinline=1&loop=1&playlist=vp0nW5eEFK4"
-                title="فيديو افتتاحي"
-                allow="autoplay; encrypted-media; picture-in-picture"
-                allowfullscreen>
-            </iframe>
-        </div>
+        <div class="content-wrapper">
 
-        <!-- كلمة المدير -->
-        <div class="section">
-            <h2>🎙️ كلمة مدير المدرسة</h2>
-            <div class="speaker">
-                <h3>أ. بندر بن سلمان البداح</h3>
-                <p>
-                    نرحب بجميع أولياء الأمور، ونؤكد على أهمية الشراكة الفاعلة بين الأسرة والمدرسة
-                    لتحقيق أهداف العملية التعليمية. نتمنى لكم وقتاً مثمراً في هذا اللقاء.
-                </p>
+            <!-- عنوان اللقاء -->
+            <div class="meeting-title">
+                <h1>لقاء أولياء الأمور غير المتزامن 1448</h1>
+                <p>مدرسة الرياض الثانوية بالزلفي</p>
             </div>
-        </div>
 
-        <!-- كلمة الوكيل -->
-        <div class="section">
-            <h2>🗂️ كلمة وكيل شؤون الطلاب</h2>
-            <div class="speaker">
-                <h3>أ. سلطان بن سحلي العتيبي</h3>
-                <div class="speaker-image">
-                    <img src="images/vice-principal.jpeg" alt="كلمة وكيل شؤون الطلاب">
+            <!-- الفيديو الافتتاحي -->
+            <div class="video-wrapper">
+                <iframe
+                    src="https://www.youtube.com/embed/vp0nW5eEFK4?autoplay=1&mute=1&playsinline=1&loop=1&playlist=vp0nW5eEFK4"
+                    title="فيديو افتتاحي"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- كلمة المدير -->
+            <div class="section">
+                <h2>🎙️ كلمة مدير المدرسة</h2>
+                <div class="speaker">
+                    <h3>أ. بندر بن سلمان البداح</h3>
+                    <p>
+                        نرحب بجميع أولياء الأمور، ونؤكد على أهمية الشراكة الفاعلة بين الأسرة والمدرسة
+                        لتحقيق أهداف العملية التعليمية. نتمنى لكم وقتاً مثمراً في هذا اللقاء.
+                    </p>
                 </div>
             </div>
-        </div>
 
-        <!-- كلمة الموجه -->
-        <div class="section">
-            <h2>🧭 كلمة الموجه الطلابي</h2>
-            <div class="speaker">
-                <h3>أ. عبدالرحمن بن صالح الحمادي</h3>
-                <h3>أ. فهد بن محمد العراجة</h3>
-                <div class="speaker-image">
-                    <img src="images/counselor.jpeg" alt="كلمة الموجه الطلابي">
+            <!-- كلمة الوكيل -->
+            <div class="section">
+                <h2>🗂️ كلمة وكيل شؤون الطلاب</h2>
+                <div class="speaker">
+                    <h3>أ. سلطان بن سحلي العتيبي</h3>
+                    <div class="speaker-image">
+                        <img src="images/vice-principal.jpeg" alt="كلمة وكيل شؤون الطلاب">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- كلمة رائد النشاط -->
-        <div class="section">
-            <h2>🎭 كلمة رائد النشاط</h2>
-            <div class="speaker">
-                <h3>أ. خالد بن عبدالرحمن المسعود</h3>
-                <div class="speaker-image">
-                    <img src="images/raed nshat.png" alt="كلمة رائد النشاط">
+            <!-- كلمة الموجه -->
+            <div class="section">
+                <h2>🧭 كلمة الموجه الطلابي</h2>
+                <div class="speaker">
+                    <h3>أ. عبدالرحمن بن صالح الحمادي</h3>
+                    <h3>أ. فهد بن محمد العراجة</h3>
+                    <div class="speaker-image">
+                        <img src="images/counselor.jpeg" alt="كلمة الموجه الطلابي">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- الموضوعات -->
-        <div class="section">
-            <h2>📚 موضوعات اللقاء</h2>
-            <a class="topic" href="https://drive.google.com/file/d/14Z4lE3eeA1rA8WH0dD_L1kDvXGesNt4j/view?usp=sharing" target="_blank">📄 شراكة الأسرة والمدرسة</a>
-            <a class="topic" href="https://drive.google.com/file/d/1EsvIm6FQ_V59mh406c1mj3LUIfW2sqjM/view?usp=sharing" target="_blank">📋 السلوك والمواظبة للمرحلة الثانوية</a>
-            <a class="topic" href="https://drive.google.com/file/d/1CA8WW-oXq9p2thhlJiPENTZtQsryxwNc/view?usp=drive_link" target="_blank">🎯 الدافعية للتحصيل الدراسي</a>
-            <a class="topic" href="https://drive.google.com/file/d/1MZTl7_7viC9hpAi8Pc6EdmaRkqtgwvRI/view?usp=sharing" target="_blank">🧠 الاستعداد لاختبار القدرات</a>
-        </div>
-
-        <!-- حضور وتفاعل -->
-        <div class="section">
-            <h2>✅ تأكيد الحضور والتفاعل</h2>
-            <div class="form-group">
-                <label>صلة القرابة</label>
-                <input type="text" id="relation" placeholder="مثال: أب، أم، أخ، جد...">
-            </div>
-            <div class="form-group">
-                <label>اسم الطالب</label>
-                <input type="text" id="studentName" placeholder="اسم الطالب">
-            </div>
-            <div class="form-group">
-                <label>الصف</label>
-                <select id="className">
-                    <option value="" disabled selected>-- اختر --</option>
-                    <option value="الأول الثانوي">الأول الثانوي</option>
-                    <option value="الثاني الثانوي">الثاني الثانوي</option>
-                    <option value="الثالث الثانوي">الثالث الثانوي</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>هل اطلعت على كلمات المتحدثين؟</label>
-                <div class="check-group">
-                    <label><input type="checkbox" class="confirm-speakers" value="نعم"> نعم</label>
+            <!-- كلمة رائد النشاط -->
+            <div class="section">
+                <h2>🎭 كلمة رائد النشاط</h2>
+                <div class="speaker">
+                    <h3>أ. خالد بن عبدالرحمن المسعود</h3>
+                    <div class="speaker-image">
+                        <img src="images/raed nshat.png" alt="كلمة رائد النشاط">
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label>هل اطلعت على الموضوعات؟</label>
-                <div class="check-group">
-                    <label><input type="checkbox" class="confirm-topics" value="نعم"> نعم</label>
+
+            <!-- الموضوعات -->
+            <div class="section">
+                <h2>📚 موضوعات اللقاء</h2>
+                <a class="topic" href="https://drive.google.com/file/d/14Z4lE3eeA1rA8WH0dD_L1kDvXGesNt4j/view?usp=sharing" target="_blank">📄 شراكة الأسرة والمدرسة</a>
+                <a class="topic" href="https://drive.google.com/file/d/1EsvIm6FQ_V59mh406c1mj3LUIfW2sqjM/view?usp=sharing" target="_blank">📋 السلوك والمواظبة للمرحلة الثانوية</a>
+                <a class="topic" href="https://drive.google.com/file/d/1CA8WW-oXq9p2thhlJiPENTZtQsryxwNc/view?usp=drive_link" target="_blank">🎯 الدافعية للتحصيل الدراسي</a>
+                <a class="topic" href="https://drive.google.com/file/d/1MZTl7_7viC9hpAi8Pc6EdmaRkqtgwvRI/view?usp=sharing" target="_blank">🧠 الاستعداد لاختبار القدرات</a>
+            </div>
+
+            <!-- حضور وتفاعل -->
+            <div class="section">
+                <h2>✅ تأكيد الحضور والتفاعل</h2>
+                <div class="form-group">
+                    <label>صلة القرابة</label>
+                    <input type="text" id="relation" placeholder="مثال: أب، أم، أخ، جد...">
                 </div>
+                <div class="form-group">
+                    <label>اسم الطالب</label>
+                    <input type="text" id="studentName" placeholder="اسم الطالب">
+                </div>
+                <div class="form-group">
+                    <label>الصف</label>
+                    <select id="className">
+                        <option value="" disabled selected>-- اختر --</option>
+                        <option value="الأول الثانوي">الأول الثانوي</option>
+                        <option value="الثاني الثانوي">الثاني الثانوي</option>
+                        <option value="الثالث الثانوي">الثالث الثانوي</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>هل اطلعت على كلمات المتحدثين؟</label>
+                    <div class="check-group">
+                        <label><input type="checkbox" class="confirm-speakers" value="نعم"> نعم</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>هل اطلعت على الموضوعات؟</label>
+                    <div class="check-group">
+                        <label><input type="checkbox" class="confirm-topics" value="نعم"> نعم</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>ملاحظات أو أسئلة</label>
+                    <textarea id="feedback" rows="4" placeholder="اكتب استفسارك أو ملاحظتك..."></textarea>
+                </div>
+                <button class="btn-submit" id="submitBtn">📨 إرسال التفاعل</button>
+                <div class="successMsg" id="successMsg">✅ تم تسجيل حضوركم وتفاعلكم بنجاح، شكراً لكم.</div>
             </div>
-            <div class="form-group">
-                <label>ملاحظات أو أسئلة</label>
-                <textarea id="feedback" rows="4" placeholder="اكتب استفسارك أو ملاحظتك..."></textarea>
-            </div>
-            <button class="btn-submit" id="submitBtn">📨 إرسال التفاعل</button>
-            <div class="successMsg" id="successMsg">✅ تم تسجيل حضوركم وتفاعلكم بنجاح، شكراً لكم.</div>
+
         </div>
     </div>
 
     <script>
-        // رابط تطبيق الويب من Google Apps Script
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyttI_I3-UBauSVCul98jLrBEucxhyDNUXOp8xKjBSM7V17RBuBQa66EW9M6-gI9rik/exec';
 
         document.getElementById('submitBtn').addEventListener('click', async function() {
